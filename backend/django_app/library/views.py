@@ -112,3 +112,5 @@ class GetThatBook(APIView):
 
         response_dict = {"Title": cur_book.title, "Author":cur_book.author.getName(),"url": cur_book.book_url,"status":cur_book.status_b}
         return Response(response_dict, status=200)
+
+

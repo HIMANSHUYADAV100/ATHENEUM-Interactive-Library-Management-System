@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import Login from "./components/Login";
 import Home from "./components/Home";
+import Issue from "./components/Issue";
 import PasswordUpdate from "./components/PasswordUpdate";
 
 // A wrapper for <Route> that redirects to the login screen if you're not yet authenticated.
@@ -33,6 +34,7 @@ function Urls(props) {
                     <Route exact path="/login/"> <Login {...props} /></Route>
                     <PrivateRoute exact path="/update_password/" isAuthenticated={props.isAuthenticated}><PasswordUpdate {...props}/></PrivateRoute>
                     <PrivateRoute exact path="/" isAuthenticated={props.isAuthenticated}><Home {...props}/></PrivateRoute>
+                    <PrivateRoute exact path="/issue/" isAdminUser={props.isAdminUser}><Issue {...props}/></PrivateRoute>
                 </Switch>
             </BrowserRouter>
         </div>
