@@ -55,5 +55,18 @@ class Issued_records(models.Model):
     class Meta:
         ordering = ['doi']
     
+class LOGofIssued(models.Model):
+    doi_log = models.DateTimeField()
+    tob_log = models.ForeignKey(Book, on_delete = models.DO_NOTHING, related_name="LOGofissue")
+    
+    dor_log = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.book
+    
+    def getName(self):
+        return self.book
+
+    class Meta:
+        ordering = ['dor_log']
 

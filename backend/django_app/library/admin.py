@@ -9,4 +9,3 @@ from .models import Issued_records
 admin.site.register(Category)
 admin.site.register(Author)
 admin.site.register(Book)
-admin.site.register(Issued_records)
