@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
+// the contents are totally random , need to clean it and then work
 // To make use of issue functionality ; give href from another button on the topbar
 function Issue(props) {
     // Material UI Classes 
