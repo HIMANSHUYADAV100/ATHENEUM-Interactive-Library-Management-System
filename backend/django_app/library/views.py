@@ -100,3 +100,15 @@ class Operation_returnBook(APIView):
     
         response_dict = {"statusB" : "Return Successful | "+biq.title}
         return Response(response_dict,status=200)
+
+class GetThatBook(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        data_f = request.data
+        data = data_f['iid'] 
+        cur_book = Book.objects.get(id=data)
+
+        response_dict = {"Title": cur_book.title, "Author":cur_book.author.getName(),"url": cur_book.book_url,"status":cur_book.status_b}
+        return Response(response_dict, status=200)
