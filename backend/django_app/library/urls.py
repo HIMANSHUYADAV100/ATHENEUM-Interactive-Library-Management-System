@@ -5,6 +5,8 @@ from .views import Library_Books
 from .views import Operation_issueBook
 from .views import Operation_returnBook
 from .views import GetThatBook
+from .views import GetIssueRecords
+from .views import GetLogRecords
 
 
 urlpatterns = [
@@ -14,4 +16,6 @@ urlpatterns = [
     path('issue/', Operation_issueBook.as_view(), name = 'issue'),
     path('return/', Operation_returnBook.as_view(), name = 'return'),
     path('getbook/', GetThatBook.as_view(), name = 'getbook'),
+    path('getissuerec/', GetIssueRecords.as_view(), name = 'getissuerec'),
+    path('getlogrec/', GetLogRecords.as_view(), name = 'getlogrec'),
 ]

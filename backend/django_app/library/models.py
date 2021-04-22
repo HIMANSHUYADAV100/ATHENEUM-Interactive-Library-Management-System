@@ -45,7 +45,8 @@ class Book(models.Model):
 class Issued_records(models.Model):
     doi = models.DateTimeField(auto_now_add=True)
     tob = models.ForeignKey(Book, on_delete = models.DO_NOTHING, related_name="recordofissue")
-    
+    nop = models.CharField(max_length=120,blank=False,default="Contact admin : Check physical records")
+
     def __str__(self):
         return self.book
     
@@ -58,6 +59,7 @@ class Issued_records(models.Model):
 class LOGofIssued(models.Model):
     doi_log = models.DateTimeField()
     tob_log = models.ForeignKey(Book, on_delete = models.DO_NOTHING, related_name="LOGofissue")
+    nop_log = models.CharField(max_length=120,blank=False, default="Contact admin : Check physical records")
     
     dor_log = models.DateTimeField(auto_now_add=True)
 
