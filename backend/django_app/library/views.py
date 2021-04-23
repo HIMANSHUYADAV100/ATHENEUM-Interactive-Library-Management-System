@@ -137,7 +137,7 @@ class GetThatBook(APIView):
 
 class GetIssueRecords(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def post(self,format=None):
         cur_book = Issued_records.objects.values()
@@ -152,7 +152,7 @@ class GetIssueRecords(APIView):
 
 class GetLogRecords(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def post(self,format=None):
         cur_book = LOGofIssued.objects.values()
@@ -167,3 +167,11 @@ class GetLogRecords(APIView):
         response_dict = {"issue": cur_book}
         return Response(response_dict, status=200)
     
+class IsItAdmin(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
+
+    def post(self,format=None):
+
+        response_dict = {"detail": True}
+        return Response(response_dict, status=200)
