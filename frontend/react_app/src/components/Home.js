@@ -103,7 +103,7 @@ function isItAdmin1(){
                             axios(config).then(
                                 res => { setIrstatus(res.data["statusB"])
                                 }).catch(
-                                    error => {alert(error)})
+                                    error => {alert("Only Admin can Register Returned Book")})
 
    }
 
@@ -124,7 +124,7 @@ function isItAdmin1(){
                     axios(config).then(
                         res => { setIrstatus(res.data["statusB"])
                         }).catch(
-                            error => {alert("Not Authorized to perform this task")})
+                            error => {alert("Only Admin can issue books")})
 
 }
 
@@ -181,7 +181,7 @@ function isItAdmin1(){
                             axios(config).then(
                                 res => {setPrediction(res.data['issue'])
                                 }).catch(
-                                    error => {alert(error)})
+                                    error => {alert("Only Admin can view Records")})
 
     }
 
@@ -209,7 +209,7 @@ function isItAdmin1(){
                     axios(config).then(
                         res => {setPrediction(res.data['issue'])
                         }).catch(
-                            error => {alert(error)})
+                            error => {alert("Only Admin can view History LOG of issue")})
 
     }
 

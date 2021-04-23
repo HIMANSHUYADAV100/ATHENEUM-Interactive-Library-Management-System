@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Category
 from .models import Author
 from .models import Book
-from .models import Issued_records
+
 
 admin.site.register(Category)
 admin.site.register(Author)
