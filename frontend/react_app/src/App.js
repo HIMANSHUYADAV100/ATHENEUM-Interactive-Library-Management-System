@@ -4,6 +4,9 @@ import Layout from './components/Layout';
 import {connect} from 'react-redux';
 import * as actions from './store/authActions';
 
+const style = {
+  backgroundColor:"#FAE5BD"
+}
 
 function App(props) {
 
@@ -13,7 +16,7 @@ function App(props) {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App"style = {style} >
       <Layout {...props}>
          <Urls {...props}/>
       </Layout>
