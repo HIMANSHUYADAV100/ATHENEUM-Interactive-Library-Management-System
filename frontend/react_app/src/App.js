@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect} from 'react';
 import Urls from './Urls';
 import Layout from './components/Layout';
 import {connect} from 'react-redux';
@@ -11,9 +11,14 @@ const style = {
 function App(props) {
 
   // Similar to componentDidMount and componentDidUpdate:
-  React.useEffect(() => {
+  useEffect(() => {
     props.setAuthenticatedIfRequired();
   }, []);
+
+
+  useEffect(()=>{
+    props.user();
+  })
 
   return (
     <div className="App"style = {style} >
@@ -36,7 +41,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setAuthenticatedIfRequired: () => dispatch(actions.authCheckState()),
-    logout: () => dispatch(actions.authLogout()) 
+    logout: () => dispatch(actions.authLogout()),
+    user:()=>dispatch(actions.loadUser()) 
   }
 }
 
