@@ -4,9 +4,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import bg from "./Images/loginBackGround.jpg";
-
 import { connect } from "react-redux";
 import * as actions from "../store/authActions";
 
@@ -72,14 +69,14 @@ function Login(props) {
     <div>
       <CssBaseline />
       <div className={classes.paper}>
-        <div style={{ display: "flex", overflow:'hidden', padding: "2vw" }}>
+        <div style={{ display: "flex", overflow: "hidden", padding: "2vw" }}>
           <div
             style={{
               marginLeft: "2vw",
               justifyContent: "center",
               padding: "3vw",
               width: "500px",
-              minWidth:'400px',
+              minWidth: "400px",
               height: "80vh",
               backgroundColor: "white",
               background: "rgba(255, 255, 255, 0.7)",
@@ -100,7 +97,6 @@ function Login(props) {
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
                 id="username"
                 label="UserName"
                 name="username"
@@ -112,7 +108,6 @@ function Login(props) {
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
                 name="password"
                 label="Password"
                 type="password"
@@ -122,7 +117,6 @@ function Login(props) {
               />
               <Button
                 type="submit"
-                fullWidth
                 variant="contained"
                 className={classes.submit}
               >
@@ -138,15 +132,15 @@ function Login(props) {
                 fontFamily: "Cantata One",
                 fontSize: "64px",
                 textAlign: "center",
-                marginLeft:'15px',
+                marginLeft: "15px",
 
-                padding:"20% 0",
+                padding: "20% 0",
                 width: "100%",
                 backgroundColor: "white",
-              background: "rgba(255, 255, 255, 0.7)",
-              boxShadow: "0px 0px 34px -6px rgba(220, 220, 220, 0.3)",
-              backdropFilter: "blur(40px)",
-              border:"2px solid black"
+                background: "rgba(255, 255, 255, 0.7)",
+                boxShadow: "0px 0px 34px -6px rgba(220, 220, 220, 0.3)",
+                backdropFilter: "blur(40px)",
+                border: "2px solid black",
               }}
             >
               {/* photo showcase */}
