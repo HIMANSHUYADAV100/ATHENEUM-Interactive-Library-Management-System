@@ -1,20 +1,17 @@
-import React, { useState, useEffect, Authorization } from "react";
+import React, { useEffect, useState } from "react";
+import {connect} from 'react-redux';
 import axios from "axios";
-import * as settings from "../settings";
+
 
 import TextField from "@material-ui/core/TextField";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import {
-  Container,
-  Grid,
-  Paper,
-  Typography,
-  Button,
-} from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
+import { makeStyles } from "@material-ui/core/styles";
+import { Container, Grid, Paper, Typography, Button } from "@material-ui/core";
+
+import Link from "@material-ui/core/Link";
 import MaterialTable from "material-table";
-import { bindActionCreators } from "redux";
+import { authCheckState,loadUser,authLogout } from "../store/authActions";
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -22,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "3vh",
     marginBottom: "3vh",
     borderRadius: "6px",
-    backgroundColor: theme.palette.action.disabledBackground,
+    backgroundColor: "#FAE5BD",
   },
   title: {
     marginTop: theme.spacing(2),
@@ -37,48 +34,28 @@ const useStyles = makeStyles((theme) => ({
 // The main Home component returned by this Module
 // ########################################################
 function Home(props) {
-  let isadmin1 = false;
-  function isItAdmin1() {
-    //Axios variables required to call the API
-    let headers = { Authorization: `Token ${props.token}` };
-
-    let url = "http://127.0.0.1:8000/api/lib/isitadmin/";
-    let method = "post";
-    let config = { headers, method, url };
-
-    //Axios predict API call
-    axios(config)
-      .then((res) => {
-        setadmstat(res.data["detail"]);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-
-    if (isadmin === true) {
-      setadmstat(true);
-    } else {
-      setadmstat(false);
-    }
-    return isadmin;
-  }
-
+  
   const classes = useStyles();
 
-  const columns = [
-    { title: "ID", field: "id" },
-    { title: "Title", field: "title" },
-    { title: "Author", field: "author_id" },
-    { title: "Status", field: "Status" },
-  ];
+  // const columns = [
+  //   { title: "ID", field: "id" },
+  //   { title: "Title", field: "title" },
+  //   { title: "Author", field: "author_id" },
+  //   { title: "Status", field: "Status" },
+  // ];
 
   // React hook state variable
-  const [prediction, setPrediction] = useState([]);
+
+  const [tableContent, setTableContent] = useState([]);
+
+
   const [bid, setbid] = React.useState(null);
   const [pname, setpname] = React.useState(null);
   const [irstatus, setIrstatus] = React.useState(null);
   const [tabtit, setTabtit] = React.useState(null);
-  const [isadmin, setadmstat] = React.useState(true); // uses negative logic
+
+  const [isadmin, setadmstat] = React.useState(null); // uses negative logic
+
 
   // for table manipulation
   const [col, setCol] = React.useState([]);
@@ -146,43 +123,7 @@ function Home(props) {
       });
   };
 
-  // Function to make the predict API call and update the state variable - Prediction
-  const getBooks = (event) => {
-    setTabtit("Books in LIBRARY");
 
-    setCol([
-      { title: "ID", field: "id" },
-      { title: "Title", field: "title" },
-      { title: "Genre", field: "cat" },
-      { title: "Author", field: "author_id" },
-      { title: "Status", field: "Status" },
-      { title: "URL", field: "book_url" },
-    ]);
-
-    //Axios variables required to call the API
-    let headers = {
-      Authorization: `Token ${props.token}`,
-      "Content-Type":
-        "multipart/form-data; boundary=<calculated when request is sent>",
-      "Content-Length": "<calculated when request is sent>",
-      Host: "<calculated when request is sent>",
-      Accept: "/",
-      "Accept-Encoding": "gzip, deflate, br",
-    };
-    //    let url = settings.API_SERVER + '/api/predict/';
-    let url = "http://127.0.0.1:8000/api/lib/books/";
-    let method = "post";
-    let config = { headers, method, url };
-
-    //Axios predict API call
-    axios(config)
-      .then((res) => {
-        setPrediction(res.data["Books"]);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
 
   //getissueRec
   const getissueRec = (event) => {
@@ -197,13 +138,7 @@ function Home(props) {
 
     //Axios variables required to call the API
     let headers = {
-      Authorization: `Token ${props.token}`,
-      "Content-Type":
-        "multipart/form-data; boundary=<calculated when request is sent>",
-      "Content-Length": "<calculated when request is sent>",
-      Host: "<calculated when request is sent>",
-      Accept: "/",
-      "Accept-Encoding": "gzip, deflate, br",
+      Authorization: `Token ${props.token}`
     };
 
     let url = "http://127.0.0.1:8000/api/lib/getissuerec/";
@@ -213,7 +148,7 @@ function Home(props) {
     //Axios predict API call
     axios(config)
       .then((res) => {
-        setPrediction(res.data["issue"]);
+        setTableContent(res.data["issue"]);
       })
       .catch((error) => {
         alert("Only Admin can view Records");
@@ -233,13 +168,7 @@ function Home(props) {
 
     //Axios variables required to call the API
     let headers = {
-      Authorization: `Token ${props.token}`,
-      "Content-Type":
-        "multipart/form-data; boundary=<calculated when request is sent>",
-      "Content-Length": "<calculated when request is sent>",
-      Host: "<calculated when request is sent>",
-      Accept: "/",
-      "Accept-Encoding": "gzip, deflate, br",
+      Authorization: `Token ${props.token}`
     };
 
     let url = "http://127.0.0.1:8000/api/lib/getlogrec/";
@@ -249,54 +178,21 @@ function Home(props) {
     //Axios predict API call
     axios(config)
       .then((res) => {
-        setPrediction(res.data["issue"]);
+        setTableContent(res.data["issue"]);
       })
       .catch((error) => {
         alert("Only Admin can view History LOG of issue");
       });
   };
 
-  const isItAdmin = (event) => {
-    //Axios variables required to call the API
-    let headers = {
-      Authorization: `Token ${props.token}`,
-      "Content-Type":
-        "multipart/form-data; boundary=<calculated when request is sent>",
-      "Content-Length": "<calculated when request is sent>",
-      Host: "<calculated when request is sent>",
-      Accept: "/",
-      "Accept-Encoding": "gzip, deflate, br",
-    };
-
-    let url = "http://127.0.0.1:8000/api/lib/isitadmin/";
-    let method = "post";
-    let config = { headers, method, url };
-
-    //Axios predict API call
-    axios(config)
-      .then((res) => {
-        setadmstat(res.data["detail"]);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-
-    if (isadmin === true) {
-      setadmstat(true);
-    } else {
-      setadmstat(false);
-    }
-    return isadmin;
-  };
 
   const AdminPanel = (
-    <Container fixed className={classes.container} fullWidth display="none">
+    <Container fixed className={classes.container} display="none">
       <Typography>* for Admins</Typography>
       <TextField
         variant="outlined"
         margin="normal"
         required
-        fullWidth
         id="bid"
         label="Book id"
         name="bid"
@@ -307,7 +203,6 @@ function Home(props) {
         required
         variant="outlined"
         margin="normal"
-        fullWidth
         id="pname"
         label="Person Info"
         name="pname"
@@ -317,7 +212,6 @@ function Home(props) {
 
       <Button
         type="submit"
-        fullWidth
         variant="contained"
         color="primary"
         onClick={getThatBook}
@@ -326,7 +220,6 @@ function Home(props) {
       </Button>
       <Button
         type="submit"
-        fullWidth
         variant="contained"
         color="secondary"
         onClick={retThatBook}
@@ -343,24 +236,80 @@ function Home(props) {
     </Container>
   );
 
-  /*
-const NOTAdminPanel = (
-<div></div>
-    );
-  */
+  // Function to make the predict API call and update the state variable - Prediction
+  const getBooks = (event) => {
+    setTabtit("Books in LIBRARY");
+
+    setCol([
+      { title: "ID", field: "id" },
+      { title: "Title", field: "title" },
+      { title: "Genre", field: "cat" },
+      { title: "Author", field: "author_id" },
+      { title: "Status", field: "Status" },
+      { title: "URL", field: "book_url" },
+    ]);
+
+    //Axios variables required to call the API
+    let headers = {
+      Authorization: `Token ${props.token}`,
+      // Content-Type
+    };
+    //    let url = settings.API_SERVER + '/api/predict/';
+    let url = "http://127.0.0.1:8000/api/lib/books/";
+    let method = "post";
+    let config = { headers, method, url };
+
+    //Axios predict API call
+    return axios(config)
+      .then((res) => {
+        setTableContent(res.data["Books"]);
+      })
+      .catch((error) => {
+
+      });
+  };
+
+
+
+  useEffect(() => {
+    getBooks(); 
+  },[]);
 
   return (
     <React.Fragment>
       <CssBaseline />
 
+      <Grid item>
+        <div>
+          <MaterialTable
+            options={{
+              search: true,
+              rowStyle: {
+                fontFamily: "NTR",
+                fontSize: "17px",
+              },
+              headerStyle:{
+                fontFamily:"NTR",
+                fontWeight:"bold",
+                fontSize:"20px"
+              }
+            }}
+            style={{ color: "black" }}
+            title={tabtit}
+            data={tableContent}
+            columns={col}
+          />
+        </div>
+      </Grid>
+
       <Container fixed className={classes.container}>
-        <Grid container alignItems="center" spacing={3} fullWidth>
+        <Grid container alignItems="center" spacing={3}>
           <Grid item xs={6}>
             {AdminPanel}
 
             <Paper className={classes.title} elevation={0}>
               <Button variant="contained" color="primary" onClick={getBooks}>
-                Get Complete List
+                All Books
               </Button>
 
               <Button
@@ -368,7 +317,7 @@ const NOTAdminPanel = (
                 style={{ color: "red", backgroundColor: "#000000" }}
                 onClick={getissueRec}
               >
-                Issue Record
+                Currently Issued
               </Button>
 
               <Button
@@ -376,27 +325,31 @@ const NOTAdminPanel = (
                 style={{ color: "red", backgroundColor: "#000000" }}
                 onClick={getLogRec}
               >
-                Issue LOG
+                Issue History
               </Button>
             </Paper>
           </Grid>
         </Grid>
       </Container>
-
-      <Grid item>
-        <Paper className={classes.title} elevation={0}>
-          <div>
-            <MaterialTable
-              style={{ color: "black", backgroundColor: "#e5b79a" }}
-              title={tabtit}
-              data={prediction}
-              columns={col}
-            />
-          </div>
-        </Paper>
-      </Grid>
     </React.Fragment>
   );
 }
 
-export default Home
+//This means that one or more of the redux states in the store are available as props
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null && typeof state.auth.token !== 'undefined',
+    token: state.auth.token
+  }
+}
+
+//This means that one or more of the redux actions in the form of dispatch(action) combinations are available as props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAuthenticatedIfRequired: () => dispatch(authCheckState()),
+    logout: () => dispatch(authLogout()),
+    user:()=>dispatch(loadUser()) 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
