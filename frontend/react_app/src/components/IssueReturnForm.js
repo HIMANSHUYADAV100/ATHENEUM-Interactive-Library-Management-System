@@ -136,6 +136,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-//This means that one or more of the redux actions in the form of dispatch(action) combinations are available as props
-
 export default connect(mapStateToProps)(IssueReturnForm);
