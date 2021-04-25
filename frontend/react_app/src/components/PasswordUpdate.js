@@ -7,7 +7,6 @@ import {
   Avatar,
   Button,
   Container,
-  CssBaseline,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -81,7 +80,6 @@ function PasswordUpdate(props) {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         {success ? (
           <Typography variant="button" className={classes.success} gutterBottom>
