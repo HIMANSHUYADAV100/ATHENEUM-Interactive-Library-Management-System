@@ -7,7 +7,6 @@ from .views import Operation_returnBook
 from .views import GetThatBook
 from .views import GetIssueRecords
 from .views import GetLogRecords
-from .views import IsItAdmin
 
 
 urlpatterns = [
@@ -19,5 +18,4 @@ urlpatterns = [
     path('getbook/', GetThatBook.as_view(), name = 'getbook'),
     path('getissuerec/', GetIssueRecords.as_view(), name = 'getissuerec'),
     path('getlogrec/', GetLogRecords.as_view(), name = 'getlogrec'),
-    path('isitadmin/', IsItAdmin.as_view(), name = 'isadminornot'),
 ]
