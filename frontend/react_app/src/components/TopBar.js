@@ -1,10 +1,12 @@
-import React, { Fragment,useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import IssueReturnDialog from "./IssueReturnDialog";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import Logo from "./logo";
+import RecommendationDialog from "./RecommendationDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +42,14 @@ function TopBar(props) {
     setDialog(false);
   };
 
-  let username;
-  if (!!props.current_user){
-    username = props.current_user.username
-  }
+  useEffect(() => {
+    props.user();
+  }, []);
 
+  let username;
+  if (!!props.current_user) {
+    username = props.current_user.username;
+  }
 
   return (
     <div className={classes.root}>
@@ -62,24 +67,33 @@ function TopBar(props) {
             style={{ maxWidth: "90vw" }}
           >
             <Grid item>
-              <Logo />
+              <Link to="/">
+                <Logo />
+              </Link>
             </Grid>
 
             <Grid item>
-              {(props.isAuthenticated && username==='admin')?
-              <Fragment>
+              {props.isAuthenticated && username === "admin" ? (
+                <Fragment>
+                  <IssueReturnDialog
+                    open={dialog}
+                    close={closeDialog}
+                  ></IssueReturnDialog>
+                  <Button className={classes.button} onClick={openDialog}>
+                    Issue/Return
+                  </Button>
+                </Fragment>
+              ) : null}
 
-              <IssueReturnDialog
-              open={dialog}
-              close={closeDialog}
-              ></IssueReturnDialog>
-                <Button className={classes.button} onClick={openDialog}>
-                  Issue/Return
-                </Button>
-              </Fragment>
-              :null}
+              {props.isAuthenticated && username !== "admin" ? (
+                <Fragment>
+                  <RecommendationDialog open={dialog} close={closeDialog} />
+                  <Button className={classes.button} onClick={openDialog}>
+                    Recommendation
+                  </Button>
+                </Fragment>
+              ) : null}
 
-              
               {props.isAuthenticated ? (
                 <Button
                   edge="end"
@@ -113,6 +127,5 @@ const mapStateToProps = (state) => {
     current_user: state.auth.user,
   };
 };
-
 
 export default connect(mapStateToProps)(TopBar);
