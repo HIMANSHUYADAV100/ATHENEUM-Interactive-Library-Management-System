@@ -77,7 +77,6 @@ const Reducer = (state = initialState, action) => {
     case actionTypes.USER_LOADED:
       return {
         ...state,
-        isAuthenticated: true,
         isLoading: false,
         user: action.payload,
       };
