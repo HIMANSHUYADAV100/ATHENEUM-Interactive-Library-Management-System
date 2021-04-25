@@ -1,19 +1,17 @@
 import React, { Fragment } from "react";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
-import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
+import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import IssueReturnForm from "./IssueReturnForm";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
-
-
 
 const IssueReturnDialog = (props) => {
   return (
@@ -28,18 +26,18 @@ const IssueReturnDialog = (props) => {
       >
         <DialogTitle id="alert-dialog-slide-title">
           {"Issue Or Return A Book"}
-          <Button edge="end" onClick={props.close}color="primary">
-            <CancelRoundedIcon style={{paddingBottom:"4px",color:'grey'}} />
+          <Button edge="end" onClick={props.close} color="primary">
+            <CancelRoundedIcon
+              style={{ paddingBottom: "4px", color: "grey" }}
+            />
           </Button>
         </DialogTitle>
         <DialogContent>
-
           <DialogContentText id="alert-dialog-slide-description">
-              <IssueReturnForm/>
+            <IssueReturnForm />
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-        </DialogActions>
+        <DialogActions></DialogActions>
       </Dialog>
     </Fragment>
   );
