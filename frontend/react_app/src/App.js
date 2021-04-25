@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Urls from "./Urls";
-import Layout from "./components/Layout";
+import React, { useEffect } from "react";
+import TopBar from "./components/TopBar";
+
+import Login from "./components/Login";
+import Home from "./components/Home";
+import PasswordUpdate from "./components/PasswordUpdate";
+import PrivateRoute from "./components/PrivateRoute";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import Footer from "./components/Footer";
 import { connect } from "react-redux";
 import * as actions from "./store/authActions";
 
@@ -20,9 +27,34 @@ function App(props) {
 
   return (
     <div className="App" style={style}>
-      <Layout {...props}>
-        <Urls {...props} />
-      </Layout>
+      <BrowserRouter>
+        <TopBar {...props} />
+        <Switch>
+          <div>
+            <Route exact path="/login/">
+              {" "}
+              <Login {...props} />
+            </Route>
+
+            <PrivateRoute
+              exact
+              path="/update_password/"
+              isAuthenticated={props.isAuthenticated}
+            >
+              <PasswordUpdate {...props} />
+            </PrivateRoute>
+
+            <PrivateRoute
+              exact
+              path="/"
+              isAuthenticated={props.isAuthenticated}
+            >
+              <Home {...props} />
+            </PrivateRoute>
+          </div>
+        </Switch>
+      </BrowserRouter>
+      <Footer />
     </div>
   );
 }
