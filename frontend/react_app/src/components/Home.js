@@ -1,45 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import CssBaseline from "@material-ui/core/CssBaseline";
-// import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Button } from "@material-ui/core";
 import MaterialTable, { MTableToolbar } from "material-table";
 
-// const useStyles = makeStyles((theme) => ({
-//   container: {
-//     maxWidth: "85%",
-//     marginTop: "3vh",
-//     marginBottom: "3vh",
-//     borderRadius: "6px",
-//     backgroundColor: "#FAE5BD",
-//   },
-//   title: {
-//     marginTop: theme.spacing(2),
-//     marginBottom: theme.spacing(2),
-//     padding: theme.spacing(1),
-//     paddingLeft: theme.spacing(4),
-//     color: theme.palette.primary.main,
-//   },
-// }));
 
 // ########################################################
 // The main Home component returned by this Module
 // ########################################################
 function Home(props) {
-  // const classes = useStyles();
 
   const [tableContent, setTableContent] = useState([]);
-  const [tabtit, setTabtit] = React.useState(null);
+  const [tableTitle, setTableTitle] = React.useState(null);
 
   // for table manipulation
-  const [col, setCol] = React.useState([]);
+  const [columnHeaders, setColumnHeaders] = React.useState([]);
 
   //getissueRec
-  const getissueRec = (event) => {
-    setTabtit("Issue Records");
+  const getCurrentlyIssuedBooks = (event) => {
+    setTableTitle("Issue Records");
 
-    setCol([
+    setColumnHeaders([
       { title: "ID", field: "id" },
       { title: "IssuedAt", field: "doi" },
       { title: "Book", field: "tob_id" },
@@ -65,10 +46,10 @@ function Home(props) {
       });
   };
 
-  const getLogRec = (event) => {
-    setTabtit("LOG HISTORY RECORDS");
+  const getPreviouslyIssuedBooks = (event) => {
+    setTableTitle("Issuing History");
 
-    setCol([
+    setColumnHeaders([
       { title: "ID", field: "id" },
       { title: "Was_Issued_at", field: "doi_log" },
       { title: "Submitted_at", field: "dor_log" },
@@ -99,7 +80,7 @@ function Home(props) {
   const getBooks = (event) => {
     setTabtit("Books in LIBRARY");
 
-    setCol([
+    setColumnHeaders([
       { title: "ID", field: "id" },
       { title: "Title", field: "title" },
       { title: "Genre", field: "cat" },
@@ -113,7 +94,7 @@ function Home(props) {
       Authorization: `Token ${props.token}`,
       // Content-Type
     };
-    //    let url = settings.API_SERVER + '/api/predict/';
+
     let url = "http://127.0.0.1:8000/api/lib/books/";
     let method = "post";
     let config = { headers, method, url };
@@ -130,44 +111,33 @@ function Home(props) {
     getBooks();
   }, []);
 
-  useEffect(() => {
-    props.user();
-  });
+  useEffect(()=>{
+    props.user()
+  },[])
   const buttonStyle = {
-
-    margin: "2px 10px", color: "black", backgroundColor: "white" 
-  }
+    margin: "2px 10px",
+    color: "black",
+    backgroundColor: "white",
+  };
 
   const toolbarButtons = (props) => (
     <div>
       <MTableToolbar {...props}></MTableToolbar>
 
-      <Button
-        variant="outlined"
-        onClick={getBooks}
-        style={buttonStyle}
-      >
+      <Button variant="outlined" onClick={getBooks} style={buttonStyle}>
         All Books
       </Button>
-      <Button
-        variant="outlined"
-        style={buttonStyle}
-        onClick={getissueRec}
-      >
+      <Button variant="outlined" style={buttonStyle} onClick={getCurrentlyIssuedBooks}>
         Currently Issued
       </Button>
 
-      <Button
-        variant="outlined"
-        style={buttonStyle}
-        onClick={getLogRec}
-      >
+      <Button variant="outlined" style={buttonStyle} onClick={getPreviouslyIssuedBooks}>
         Issue History
       </Button>
     </div>
   );
 
-   const materialTableOptions = {
+  const materialTableOptions = {
     search: true,
     headerStyle: {
       width: "10px",
@@ -185,37 +155,35 @@ function Home(props) {
     pageSizeOptions: 5,
     paginationType: "normal",
     paginationPosition: "bottom", //stepped
-  }
+  };
 
   let username;
-  if (!!props.current_user){
-    username = props.current_user.username
+  if (!!props.current_user) {
+    username = props.current_user.username;
   }
-  
-  function ButtonsOrNot(){
-    if(props.isAuthenticated && username==='admin'){
-      return {Toolbar:toolbarButtons}
-    }else{
-      return{}
+
+  function ButtonsOrNot() {
+    if (props.isAuthenticated && username === "admin") {
+      return { Toolbar: toolbarButtons };
+    } else {
+      return {};
     }
   }
 
-  const materialTableComponents = ButtonsOrNot()
-  
-  
+  const materialTableComponents = ButtonsOrNot();
 
   return (
     <React.Fragment>
-      <CssBaseline />
+
 
       <Grid item>
         <div>
           <MaterialTable
             components={materialTableComponents}
             options={materialTableOptions}
-            title={tabtit}
+            title={tableTitle}
             data={tableContent}
-            columns={col}
+            columns={columnHeaders}
           />
         </div>
       </Grid>
@@ -229,11 +197,8 @@ const mapStateToProps = (state) => {
     isAuthenticated:
       state.auth.token !== null && typeof state.auth.token !== "undefined",
     token: state.auth.token,
-    current_user:state.auth.user
+    current_user: state.auth.user,
   };
 };
 
-
-
 export default connect(mapStateToProps)(Home);
-
