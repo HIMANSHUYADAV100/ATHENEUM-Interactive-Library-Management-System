@@ -73,7 +73,7 @@ export const loadUser = () => (dispatch, getState) => {
       });
   };
 
-export const authLogout = () => {
+export const authLogout = () =>(dispatch)=> {
   const token = localStorage.getItem("token");
   if (token === undefined) {
     localStorage.removeItem("expirationDate");
@@ -86,6 +86,9 @@ export const authLogout = () => {
       )
       .then((res) => {
         console.log(res);
+        dispatch({
+          type: actionTypes.AUTH_LOGOUT,
+        })
       })
       .catch((err) => {
         console.log(err);
@@ -94,9 +97,7 @@ export const authLogout = () => {
     localStorage.removeItem("expirationDate");
   }
 
-  return {
-    type: actionTypes.AUTH_LOGOUT,
-  };
+  
 };
 
 // ########################################################
@@ -107,9 +108,9 @@ export const authLogout = () => {
 
 // This sets a timer, which would automatically logout the user after a specified time
 export const authCheckTimeout = (expirationTime) => {
-  return (dispatch) => {
+  return () => {
     setTimeout(() => {
-      dispatch(authLogout());
+      authLogout();
     }, expirationTime);
   };
 };
