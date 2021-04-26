@@ -78,7 +78,7 @@ function Home(props) {
 
   // Function to make the predict API call and update the state variable - Prediction
   const getBooks = (event) => {
-    setTabtit("Books in LIBRARY");
+    setTableTitle("Books in LIBRARY");
 
     setColumnHeaders([
       { title: "ID", field: "id" },

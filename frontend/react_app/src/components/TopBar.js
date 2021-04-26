@@ -61,11 +61,7 @@ function TopBar(props) {
             alignItems: "center",
           }}
         >
-          <Grid
-            justify="space-between" // Add it here :)
-            container
-            style={{ maxWidth: "90vw" }}
-          >
+          <Grid justify="space-between" container style={{ maxWidth: "90vw" }}>
             <Grid item>
               <Link to="/">
                 <Logo />
@@ -82,6 +78,13 @@ function TopBar(props) {
                   <Button className={classes.button} onClick={openDialog}>
                     Issue/Return
                   </Button>
+                  <a
+                    target="_blank"
+                    href="http://localhost:8000/admin"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button className={classes.button}>Admin Panel</Button>
+                  </a>
                 </Fragment>
               ) : null}
 

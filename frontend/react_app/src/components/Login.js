@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import * as actions from "../store/authActions";
+import loginBg from "../components/Images/loginBackGround.jpg";
 
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -22,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    display:'flex',
+    flexDirection:"column"
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -67,15 +70,14 @@ function Login(props) {
   return (
     <div>
       <div className={classes.paper}>
-        <div style={{ display: "flex", overflow: "hidden", padding: "2vw" }}>
+        <div style={{ display: "flex",height:'78vh',overflow: "hidden", padding: "2vw" }}>
           <div
             style={{
               marginLeft: "2vw",
               justifyContent: "center",
               padding: "3vw",
-              width: "500px",
-              minWidth: "400px",
-              height: "80vh",
+              width: "25%",
+              height: "90%",
               backgroundColor: "white",
               background: "rgba(255, 255, 255, 0.7)",
               boxShadow: "0px 0px 34px -6px rgba(220, 220, 220, 0.3)",
@@ -83,14 +85,14 @@ function Login(props) {
             }}
           >
             {/* login signup */}
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <Typography
               component="h1"
-              style={{ fontSize: "64px", marginLeft: "20%", fontFamily: "NTR" }}
+              style={{ fontSize: "64px",display:"flex",justifyContent:"center",  fontFamily: "NTR" }}
               variant="h5"
             >
               Sign in
             </Typography>
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -122,29 +124,8 @@ function Login(props) {
               </Button>
             </form>
           </div>
-          <div style={{ width: "100%", paddingTop: "2%", paddingBottom: "2%" }}>
-            <div
-              className="loginBg"
-              style={{
-                height: "100%",
-                fontFamily: "Cantata One",
-                fontSize: "64px",
-                textAlign: "center",
-                marginLeft: "15px",
-
-                padding: "20% 0",
-                width: "100%",
-                backgroundColor: "white",
-                background: "rgba(255, 255, 255, 0.7)",
-                boxShadow: "0px 0px 34px -6px rgba(220, 220, 220, 0.3)",
-                backdropFilter: "blur(40px)",
-                border: "2px solid black",
-              }}
-            >
-              {/* photo showcase */}
-              {/* <img src={bg} style={{}} ></img> */}
-              Welcome to Atheneum
-            </div>
+          <div style={{ width: "75%",margin:"2% 0", overflow:"hidden"  }}>
+            <img src = {loginBg} style = {{width:"100%"}}/>
           </div>
         </div>
       </div>

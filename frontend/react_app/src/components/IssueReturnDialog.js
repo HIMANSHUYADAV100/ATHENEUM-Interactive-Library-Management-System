@@ -25,12 +25,21 @@ const IssueReturnDialog = (props) => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title">
-          {"Issue Or Return A Book"}
-          <Button edge="end" onClick={props.close} color="primary">
-            <CancelRoundedIcon
-              style={{ paddingBottom: "4px", color: "grey" }}
-            />
-          </Button>
+          <span
+            style={{
+              fontFamily: "NTR",
+              fontSize:"36px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            {"Issue Or Return A Book"}
+            <Button edge="end" onClick={props.close} color="primary">
+              <CancelRoundedIcon
+                style={{ paddingBottom: "4px", color: "grey" }}
+              />
+            </Button>
+          </span>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">

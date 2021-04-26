@@ -83,7 +83,8 @@ const IssueReturnForm = (props) => {
   },[])
 
   return (
-    <Fragment>
+    <Fragment >
+      <span style = {{display:"flex",flexDirection:"column"}}>
 
       <TextField
         variant="outlined"
@@ -94,37 +95,40 @@ const IssueReturnForm = (props) => {
         name="book_id"
         autoComplete="off"
         onChange={handleFormFieldChange}
-      />
+        />
       <TextField
         required
         variant="outlined"
         margin="normal"
         id="borrower_details"
-        label="Person Info"
+        label="Borrower Details"
         name="borrower_details"
         autoComplete="off"
         onChange={handleFormFieldChange}
-      />
+        />
 
+      <span style = {{textAlign:"center", margin:"15px", display:"flex",justifyContent:"space-around"}}>
       <Button
         type="submit"
-        variant="contained"
+        variant="outlined"
         color="primary"
         onClick={IssueBook}
-      >
+        >
         Issue Book
       </Button>
       <Button
         type="submit"
-        variant="contained"
+        variant="outlined"
         color="secondary"
         onClick={ReturnBook}
-      >
+        >
         Return Book
       </Button>
-      <div>
+      </span>
+      <span style = {{textAlign:"center",height:'20px',color:"black"}}>
         {confirm_Msg}
-      </div>
+      </span>
+      </span>
     </Fragment>
   )
 }
