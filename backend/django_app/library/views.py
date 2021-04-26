@@ -57,19 +57,19 @@ class Operation_issueBook(APIView):
         try:            
             biq = Book.objects.get(id=data)
         except:
-            response_dict = {"statusB" : "Book does not exist "}
+            response_dict = {"statusB" : "Book was not found"}
             return Response(response_dict,status=200)
 
 
         if(biq.status_b == False):
-            response_dict = {"statusB" : "Issue FAILED "+biq.title}
+            response_dict = {"statusB" : "Currently, "+biq.title + " is not available"}
             return Response(response_dict,status=200)
 
         biq.status_b = False
         biq.save()
 
         Issued_records.objects.create(tob=biq,nop=name)
-        response_dict = {"statusB" : "Issue Successful "+biq.title + " to " + name}
+        response_dict = {"statusB":biq.title + " issued successfully to " + name}
         return Response(response_dict,status=200)
 
 class Operation_returnBook(APIView):
@@ -82,7 +82,7 @@ class Operation_returnBook(APIView):
         try:
             riq = Issued_records.objects.get(tob=data)
         except:
-            response_dict = {"statusB" : "No such issue record found"}
+            response_dict = {"statusB" : "This book was not issued to anyone"}
             try:
                 biq = Book.objects.get(id=data)
             except:
@@ -99,12 +99,12 @@ class Operation_returnBook(APIView):
             biq = Book.objects.get(id=data)
 
         except:
-            response_dict = {"statusB" : "Book does not exist "}
+            response_dict = {"statusB" : "This book can't be found"}
             return Response(response_dict,status=200)
 
 
         if(biq.status_b == True):
-            response_dict = {"statusB" : "Return FAILED :: book was not issued "+biq.title}
+            response_dict = {"statusB" : "Currently, "+biq.title + "is not issued to anyone"}
             return Response(response_dict,status=200)
 
 
@@ -115,8 +115,8 @@ class Operation_returnBook(APIView):
         
         #Issued_records.objects.delete(tob=biq)
         riq.delete()
-    
-        response_dict = {"statusB" : "Return Successful | "+biq.title+" ( Rack # : "+str(biq.phy_rack)+" )"}
+        response_dict = {"statusB" : biq.title + " successsfully returned and is located at rack " +str(biq.phy_rack)}
+
         return Response(response_dict,status=200)
 
 class GetThatBook(APIView):
