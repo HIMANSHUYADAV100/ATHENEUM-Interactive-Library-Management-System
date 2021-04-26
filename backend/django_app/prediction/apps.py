@@ -10,4 +10,8 @@ class PredictionConfig(AppConfig):
     MLMODEL_FOLDER = os.path.join(BASE_DIR, 'prediction/mlmodel/')
     MLMODEL_FILE = os.path.join(MLMODEL_FOLDER, "IRISRandomForestClassifier.joblib")
     mlmodel = load(MLMODEL_FILE)
+    
+    DATA_FILE = os.path.join(BASE_DIR,'prediction/Data/book_summaries1.csv')
+    RECOMMENDATION_ENGINE_FILE = os.path.join(BASE_DIR,'prediction/mlmodel/SVD.joblib')
+    # Recommendation_Engine = load(RECOMMENDATION_ENGINE_FILE)
 
