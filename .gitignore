@@ -1,8 +1,7 @@
+.vscode/
 Data/
 SVD.joblib
-
 node_modules
-.vscode
 
 ### Django ###
 *.log
