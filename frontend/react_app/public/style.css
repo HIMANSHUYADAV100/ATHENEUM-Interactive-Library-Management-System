@@ -1,11 +1,4 @@
-html, body {
-    height:100%;
-    padding: 0%;
-    margin:0;
-    background-color: #FAE5BD;
-}
-
-#root, .App{
-    height: 100%;
-
+html body {
+    padding: 0 !important;
+    margin:0 !important;
 }
