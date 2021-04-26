@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import {connect }from 'react-redux';
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -13,6 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const RecommendationDialog = (props) => {
+  const user_id = props.current_user.id;
   return (
     <Fragment>
       <Dialog
@@ -33,7 +35,15 @@ const RecommendationDialog = (props) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
+            <span style ={{display:'flex',flexDirection:'column'}}>
+
+            <h1>Current User Id : {user_id}</h1>
             {"Looking For Alaska"}
+
+          <Button variant="outlined" onClick={props.close}>
+            Get Another Recommendation
+          </Button>
+            </span>
           </DialogContentText>
         </DialogContent>
         <DialogActions></DialogActions>
@@ -42,4 +52,13 @@ const RecommendationDialog = (props) => {
   );
 };
 
-export default RecommendationDialog;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated:
+      state.auth.token !== null && typeof state.auth.token !== "undefined",
+    token: state.auth.token,
+    current_user: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps)(RecommendationDialog) ;
