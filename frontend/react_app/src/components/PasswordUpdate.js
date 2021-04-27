@@ -18,6 +18,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    backgroundColor:'white',
+    border:'1px solid white',
+    borderRadius:"10px",
+    display:"flex",
+    fontFamily:"NTR",
+    fontSize:"large",
+    flexDirection:'column'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -26,9 +33,24 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+    display:"flex",
+    fontFamily:"NTR",
+    fontSize:"large",
+    flexDirection:'column',
+    padding:"10%"
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    // margin: theme.spacing(3, 0, 2),
+    width:"100%",
+    color:'black',
+    margin:"5px",
+    fontFamily: "NTR",
+    boxShadow: " 0px 6px 70px 4px rgba(250, 229, 189, 0.5)",
+    margin: "10px 10px 10px 0",
+    borderRadius: "5px",
+    backgroundColor: "#FAE5BD",
+    fontSize: "18px",
+
   },
   success: {
     color: theme.palette.success.main,
@@ -79,10 +101,9 @@ function PasswordUpdate(props) {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
+    <Container component="main" className={classes.paper} maxWidth="xs">
         {success ? (
-          <Typography variant="button" className={classes.success} gutterBottom>
+          <Typography variant="outlined" className={classes.success} >
             Password update successful!
           </Typography>
         ) : null}
@@ -130,7 +151,6 @@ function PasswordUpdate(props) {
             Update Password
           </Button>
         </form>
-      </div>
     </Container>
   );
 }
