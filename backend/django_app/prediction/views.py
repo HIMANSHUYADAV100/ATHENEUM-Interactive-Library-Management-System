@@ -53,23 +53,23 @@ class BookRecommendationAPI(APIView):
                    "Book_Id": predicted_res[1],
                    "Book_Name": books.loc[book_id, 'book_name'],
                    "Book_Genre": books.loc[book_id, 'genre'],
-                   # "Book_Summary":books.loc[book_id,'summary'],
+                   "Book_Summary":books.loc[book_id,'summary'],
                    "Book_Rating": books.loc[book_id, 'ratings']}
             Pred.append(res)
         return Pred
 
     def post(self, request, format=None):
 
-        user_id = request.data.user_id
+        user_id = request.data['user_id']
 
         booksDataFrame = pd.read_csv(PredictionConfig.DATA_FILE, index_col='book_id')[
             ['book_name', 'genre', 'summary', 'ratings']]
 
-        # Commented out because of wrong python version in which surprise can't be imported
-        # model = PredictionConfig.RECOMMENDATION_ENGINE
+        model = PredictionConfig.Recommendation_Engine
 
         Pred = self.PredictRatingForAllBooks(
-            booksDataFrame, user_id, 'Model to be inserted here')
+            booksDataFrame, user_id,model)
         result = pd.DataFrame(Pred).sort_values(
             'Predicted_Rating', ascending=False).head().reset_index().T.to_dict()
+        
         return Response(result, status=200)

@@ -13,5 +13,5 @@ class PredictionConfig(AppConfig):
     
     DATA_FILE = os.path.join(BASE_DIR,'prediction/Data/book_summaries1.csv')
     RECOMMENDATION_ENGINE_FILE = os.path.join(BASE_DIR,'prediction/mlmodel/SVD.joblib')
-    # Recommendation_Engine = load(RECOMMENDATION_ENGINE_FILE)
+    Recommendation_Engine = load(RECOMMENDATION_ENGINE_FILE)
 
