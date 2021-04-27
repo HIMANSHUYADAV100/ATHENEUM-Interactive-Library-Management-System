@@ -14,7 +14,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const RecommendationDialog = (props) => {
-  const user_id = props.current_user.id;
+
+  let  user_id; 
+  if(!!props.current_user){
+    user_id = props.current_user.id;
+  }
+
   return (
     <Fragment>
       <Dialog
