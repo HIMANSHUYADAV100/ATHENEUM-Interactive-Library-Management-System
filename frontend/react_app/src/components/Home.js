@@ -139,14 +139,13 @@ function Home(props) {
 
   const materialTableOptions = {
     search: true,
-    headerStyle: {
-      width: "10px",
-    },
+
     rowStyle: {
       fontFamily: "NTR",
       fontSize: "17px",
     },
     headerStyle: {
+      width: "10px",
       fontFamily: "NTR",
       fontWeight: "bold",
       fontSize: "20px",

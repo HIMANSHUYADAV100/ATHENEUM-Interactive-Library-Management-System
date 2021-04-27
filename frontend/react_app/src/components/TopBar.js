@@ -80,6 +80,7 @@ function TopBar(props) {
                   </Button>
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     href="http://localhost:8000/admin"
                     style={{ textDecoration: "none" }}
                   >
