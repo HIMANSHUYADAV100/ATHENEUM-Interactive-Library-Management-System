@@ -5,7 +5,7 @@ import App from "./App";
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import authReducer from "./store/authReducer";
+import authReducer from "./Action&Reducer/authReducer";
 
 const reducer = combineReducers({ auth: authReducer });
 // Using Combine Reducers here although only one reducer is present.
