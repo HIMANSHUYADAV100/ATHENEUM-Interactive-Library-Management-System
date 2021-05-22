@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Footer from "./components/Footer";
 import { connect } from "react-redux";
-import * as actions from "./store/authActions";
+import * as actions from "./Action&Reducer/authActions";
 
 const style = {
   backgroundColor: "#FAE5BD",
