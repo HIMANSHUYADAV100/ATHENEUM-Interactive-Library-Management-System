@@ -29,7 +29,7 @@ function App(props) {
     <div className="App" style={style}>
       <BrowserRouter>
         <TopBar {...props} />
-        <Switch>
+        <Switch>g
           <div>
             <Route exact path="/login/">
               {" "}

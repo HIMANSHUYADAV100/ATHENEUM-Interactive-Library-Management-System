@@ -1,4 +1,5 @@
 .vscode/
+.vscode/*
 Data/
 SVD.joblib
 node_modules
