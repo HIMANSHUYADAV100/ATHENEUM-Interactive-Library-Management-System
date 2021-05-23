@@ -13,14 +13,45 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
-    display:'flex',
-    flexDirection:"column"
+    display: "flex",
+    flexDirection: "column",
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: "white",
     color: "black",
     border: "1px solid black",
+  },
+  formWrapper: {
+    marginLeft: "2vw",
+    justifyContent: "center",
+    padding: "3vw",
+    width: "25%",
+    height: "90%",
+    backgroundColor: "white",
+    background: "rgba(255, 255, 255, 0.7)",
+    boxShadow: "0px 0px 34px -6px rgba(220, 220, 220, 0.3)",
+    backdropFilter: "blur(20px)",
+  },
+  parentWrapper: {
+    display: "flex",
+    height: "78vh",
+    overflow: "hidden",
+    padding: "2vw",
+  },
+  pageTitle: {
+    fontSize: "64px",
+    display: "flex",
+    justifyContent: "center",
+    fontFamily: "NTR",
+  },
+  bgImage: {
+    background: `url(${loginBg})`,
+    backgroundSize: "auto 140%",
+    backgroundRepeat: "no-repeat",
+    width: "75%",
+    margin: "2% 0",
+    overflow: "hidden",
   },
 }));
 
@@ -60,29 +91,11 @@ function Login(props) {
   return (
     <div>
       <div className={classes.paper}>
-        <div style={{ display: "flex",height:'78vh',overflow: "hidden", padding: "2vw" }}>
-          <div
-            style={{
-              marginLeft: "2vw",
-              justifyContent: "center",
-              padding: "3vw",
-              width: "25%",
-              height: "90%",
-              backgroundColor: "white",
-              background: "rgba(255, 255, 255, 0.7)",
-              boxShadow: "0px 0px 34px -6px rgba(220, 220, 220, 0.3)",
-              backdropFilter: "blur(20px)",
-            }}
-          >
-            {/* login signup */}
+        <div className={classes.parentWrapper}>
+          <div className={classes.formWrapper}>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <Typography
-              component="h1"
-              style={{ fontSize: "64px",display:"flex",justifyContent:"center",  fontFamily: "NTR" }}
-              variant="h5"
-            >
-              Sign in
-            </Typography>
+              <Typography className={classes.pageTitle}>Sign in</Typography>
+
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -94,6 +107,7 @@ function Login(props) {
                 autoFocus
                 onChange={handleFormFieldChange}
               />
+
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -105,6 +119,7 @@ function Login(props) {
                 autoComplete="current-password"
                 onChange={handleFormFieldChange}
               />
+
               <Button
                 type="submit"
                 variant="contained"
@@ -114,16 +129,12 @@ function Login(props) {
               </Button>
             </form>
           </div>
-          <div style={{ width: "75%",margin:"2% 0", overflow:"hidden"  }}>
-            <img src = {loginBg} alt="Login Background"style = {{width:"100%"}}/>
-          </div>
+          <div className={classes.bgImage}></div>
         </div>
       </div>
     </div>
   );
 }
-
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
