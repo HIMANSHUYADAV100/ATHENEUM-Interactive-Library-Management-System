@@ -1,11 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import IssueReturnDialog from "./IssueReturnDialog";
+import IssueReturnDialog from "./IssueReturnDialog"
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import Logo from "./logo";
+import Logo from "../components/logo";
 import RecommendationDialog from "./RecommendationDialog";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function TopBar(props) {
   const classes = useStyles();
 
@@ -44,17 +44,19 @@ function TopBar(props) {
   };
 
   useEffect(() => {
-    props.user();// eslint-disable-next-line
-  }, []); 
+    props.user(); // eslint-disable-next-line
+  }, []);
 
   let username;
   if (!!props.current_user) {
     username = props.current_user.username;
   }
 
+  let current_url = useLocation().pathname;
+
   return (
     <div className={classes.root}>
-      <AppBar style={{ backgroundColor: "white" }} position="static">
+      <AppBar style={{ backgroundColor: "white",boxShadow:"none" }} position="static">
         <Toolbar
           style={{
             display: "flex",
@@ -96,6 +98,17 @@ function TopBar(props) {
                   <Button className={classes.button} onClick={openDialog}>
                     Recommendation
                   </Button>
+                </Fragment>
+              ) : null}
+
+              {current_url === "/home" ? (
+                <Fragment>
+                  <Link style={{textDecoration:"None"}} to="/login">
+                  
+                  <Button className={classes.button} >
+                    Sign In
+                  </Button>
+                  </Link>
                 </Fragment>
               ) : null}
 

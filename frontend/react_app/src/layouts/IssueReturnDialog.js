@@ -7,7 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
-import IssueReturnForm from "./IssueReturnForm";
+import IssueReturnForm from "../components/IssueReturnForm";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;

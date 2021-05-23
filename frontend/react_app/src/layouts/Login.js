@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import * as actions from "../Action&Reducer/authActions";
+import * as actions from "../Action/authActions";
 import loginBg from "../components/Images/loginBackGround.jpg";
 
 import { useHistory, useLocation } from "react-router-dom";

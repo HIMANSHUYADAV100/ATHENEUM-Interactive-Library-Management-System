@@ -1,8 +1,13 @@
 import axios from "axios";
-import * as actionTypes from "./authActionTypes";
-import * as settings from "../settings";
-
-const SESSION_DURATION = settings.SESSION_DURATION;
+import {
+  AUTH_START,
+  AUTH_SUCCESS,
+  AUTH_FAIL,
+  AUTH_LOGOUT,
+  USER_LOADING,
+  USER_LOADED,
+} from "./ActionTypes";
+import { API_SERVER, SESSION_DURATION } from "../settings";
 
 // ########################################################
 // ########################################################
@@ -24,71 +29,71 @@ const SESSION_DURATION = settings.SESSION_DURATION;
 
 export const authStart = () => {
   return {
-    type: actionTypes.AUTH_START,
+    type: AUTH_START,
   };
 };
 
 export const authSuccess = (token) => {
   return {
-    type: actionTypes.AUTH_SUCCESS,
+    type: AUTH_SUCCESS,
     token: token,
   };
 };
 
 export const authFail = (error) => {
   return {
-    type: actionTypes.AUTH_FAIL,
+    type: AUTH_FAIL,
     error: error,
   };
 };
 
 export const loadUser = () => (dispatch, getState) => {
-    dispatch({ type: actionTypes.USER_LOADING });
-  
-    const token = getState().auth.token;
-  
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-  
-    if (token) {
-      config.headers["Authorization"] = `Token ${token}`;
-    }
-  
-    axios
-      .get(`${settings.API_SERVER}/api/auth/user`, config)
-      .then((res) => {
-        dispatch({
-          type: actionTypes.USER_LOADED,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        //dispatch actions for errors
-        // dispatch(returnErrors(err.response.data, err.response.status));
-        // dispatch({ type: AUTH_ERROR });
-        console.log(err)
-      });
+  dispatch({ type: USER_LOADING });
+
+  const token = getState().auth.token;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
 
-export const authLogout = () =>(dispatch)=> {
+  if (token) {
+    config.headers["Authorization"] = `Token ${token}`;
+  }
+
+  axios
+    .get(`${API_SERVER}/api/auth/user`, config)
+    .then((res) => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      //dispatch actions for errors
+      // dispatch(returnErrors(err.response.data, err.response.status));
+      // dispatch({ type: AUTH_ERROR });
+      console.log(err);
+    });
+};
+
+export const authLogout = () => (dispatch) => {
   const token = localStorage.getItem("token");
   if (token === undefined) {
     localStorage.removeItem("expirationDate");
   } else {
     axios
       .post(
-        `${settings.API_SERVER}/api/auth/logout/`,
+        `${API_SERVER}/api/auth/logout/`,
         {},
         { headers: { Authorization: `Token ${token}` } }
       )
       .then((res) => {
         console.log(res);
         dispatch({
-          type: actionTypes.AUTH_LOGOUT,
-        })
+          type: AUTH_LOGOUT,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -96,8 +101,6 @@ export const authLogout = () =>(dispatch)=> {
     localStorage.removeItem("token");
     localStorage.removeItem("expirationDate");
   }
-
-  
 };
 
 // ########################################################
@@ -119,7 +122,7 @@ export const authLogin = (username, password) => {
   return (dispatch) => {
     dispatch(authStart());
     axios
-      .post(`${settings.API_SERVER}/api/auth/login/`, {
+      .post(`${API_SERVER}/api/auth/login/`, {
         username: username,
         password: password,
       })

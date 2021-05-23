@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import TopBar from "./components/TopBar";
+import TopBar from "./layouts/TopBar";
 
-import Login from "./components/Login";
-import Home from "./components/Home";
-import PasswordUpdate from "./components/PasswordUpdate";
+import Login from "./layouts/Login";
+import Home from "./layouts/Home";
+import PasswordUpdate from "./layouts/PasswordUpdate";
 import PrivateRoute from "./components/PrivateRoute";
+import LandingPage from "./layouts/LandingPage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-import Footer from "./components/Footer";
 import { connect } from "react-redux";
-import * as actions from "./Action&Reducer/authActions";
+import * as actions from "./Action/authActions";
 
 const style = {
   backgroundColor: "#FAE5BD",
@@ -29,11 +28,15 @@ function App(props) {
     <div className="App" style={style}>
       <BrowserRouter>
         <TopBar {...props} />
-        <Switch>g
+        <Switch>
           <div>
             <Route exact path="/login/">
               {" "}
               <Login {...props} />
+            </Route>
+
+            <Route exact path = "/home">
+              <LandingPage isAuthenticated={props.isAuthenticated} />
             </Route>
 
             <PrivateRoute
@@ -54,7 +57,7 @@ function App(props) {
           </div>
         </Switch>
       </BrowserRouter>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

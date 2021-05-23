@@ -1,4 +1,11 @@
-import * as actionTypes from "./authActionTypes";
+import {
+  AUTH_START,
+  AUTH_SUCCESS,
+  AUTH_FAIL,
+  AUTH_LOGOUT,
+  USER_LOADING,
+  USER_LOADED,
+} from "../Action/ActionTypes";
 
 // ########################################################
 // Initial State
@@ -60,21 +67,21 @@ const authLogoutReducer = (state, action) => {
 
 const Reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.AUTH_START:
+    case AUTH_START:
       return authStartReducer(state, action);
-    case actionTypes.AUTH_SUCCESS:
+    case AUTH_SUCCESS:
       return authSuccessReducer(state, action);
-    case actionTypes.AUTH_FAIL:
+    case AUTH_FAIL:
       return authFailReducer(state, action);
-    case actionTypes.AUTH_LOGOUT:
+    case AUTH_LOGOUT:
       return authLogoutReducer(state, action);
-    case actionTypes.USER_LOADING:
+    case USER_LOADING:
       return {
         ...state,
         isLoading: true,
       };
 
-    case actionTypes.USER_LOADED:
+    case USER_LOADED:
       return {
         ...state,
         isLoading: false,
