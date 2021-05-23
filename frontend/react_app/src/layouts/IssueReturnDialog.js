@@ -41,12 +41,15 @@ const IssueReturnDialog = (props) => {
             </Button>
           </span>
         </DialogTitle>
+
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <IssueReturnForm />
           </DialogContentText>
         </DialogContent>
+
         <DialogActions></DialogActions>
+        
       </Dialog>
     </Fragment>
   );
