@@ -31,7 +31,6 @@ function App(props) {
         <Switch>
           <div>
             <Route exact path="/login/">
-              {" "}
               <Login {...props} />
             </Route>
 
@@ -57,7 +56,6 @@ function App(props) {
           </div>
         </Switch>
       </BrowserRouter>
-      {/* <Footer /> */}
     </div>
   );
 }
