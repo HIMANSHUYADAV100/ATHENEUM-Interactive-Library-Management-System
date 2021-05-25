@@ -13,7 +13,6 @@ const IssueReturnForm = (props) => {
   const ReturnBook = (event) => {
     //Axios variables required to call the API
     let headers = { Authorization: `Token ${props.token}` };
-    //    let url = settings.API_SERVER + '/api/predict/';
     let url = "http://127.0.0.1:8000/api/lib/return/";
     let method = "post";
 
@@ -44,7 +43,6 @@ const IssueReturnForm = (props) => {
     //Axios variables required to call the API
     let headers = { Authorization: `Token ${props.token}` };
     console.log(props)
-    //    let url = settings.API_SERVER + '/api/predict/';
     let url = "http://127.0.0.1:8000/api/lib/issue/";
     let method = "post";
 
