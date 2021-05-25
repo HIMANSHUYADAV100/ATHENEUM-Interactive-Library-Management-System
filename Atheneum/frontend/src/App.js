@@ -34,7 +34,7 @@ function App(props) {
               <Login {...props} />
             </Route>
 
-            <Route exact path = "/home">
+            <Route exact path = "/">
               <LandingPage isAuthenticated={props.isAuthenticated} />
             </Route>
 
@@ -48,7 +48,7 @@ function App(props) {
 
             <PrivateRoute
               exact
-              path="/"
+              path="/home"
               isAuthenticated={props.isAuthenticated}
             >
               <Home {...props} />
