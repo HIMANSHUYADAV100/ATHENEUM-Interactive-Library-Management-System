@@ -7,7 +7,9 @@ import {
   USER_LOADING,
   USER_LOADED,
 } from "./ActionTypes";
-import { API_SERVER, SESSION_DURATION } from "../settings";
+
+
+const SESSION_DURATION = 5*3600*1000;
 
 // ########################################################
 // ########################################################
