@@ -11,7 +11,7 @@ export default function PrivateRoute({ isAuthenticated, children, ...rest }) {
           children
         ) : (
           <Redirect
-            to="/home"
+            to="/"
           />
         )
       }
