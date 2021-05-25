@@ -12,8 +12,8 @@
 6. Navigate to root directory of the project, you prompt should show something like "~/project/folder/ATHENEUM-Interactive-Library-Management-System" for Linux or "C:\project\folder\ATHENEUM-Interactive-Library-Management-System" for windows
 7. Install python dependencies by initiating virtual environment via
 ``` pipenv shell ```
-8. Download the [SVD.joblib](https://drive.google.com/file/d/1E6K3qgEryn6pADBxfbtFjUNCOMbIrUTk/view?usp=sharing) file and place it in ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/backend/django_app/prediction/mlmodel/```
-9. Download and save book_summaries1.csv in ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/backend/django_app/prediction/Data/```
-10. Navigate  ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/backend/django_app/``` then run django server via ```python manage.py runserver```.
-11. Open another terminal and navigate to ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/frontend/react_app/``` and install npm dependencies via ```npm install```
-12. Finally run react server by running ```npm run start```
+8. Download the [SVD.joblib](https://drive.google.com/file/d/1E6K3qgEryn6pADBxfbtFjUNCOMbIrUTk/view?usp=sharing) file and place it in ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/Atheneum/prediction/mlmodel/```
+9.  Download and save book_summaries1.csv in ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/Atheneum/prediction/Data/```
+10. Open another terminal and navigate to ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/Atheneum/frontend/``` and install npm dependencies via ```npm install```
+11. Build frontend by running ```npm run build```
+12. Navigate  ```~/project/folder/ATHENEUM-Interactive-Library-Management-System/Atheneum/``` then run django server via ```python manage.py runserver```.
